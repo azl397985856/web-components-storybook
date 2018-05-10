@@ -1,0 +1,163 @@
+{
+  "components": [
+    {
+      "tag": "duiba-calendar",
+      "dependencies": [],
+      "componentClass": "Calendar",
+      "componentPath": "components/calendar/calendar.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/calendar/calendar.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "bonusActivityCount",
+          "type": "Number",
+          "attr": "bonus-activity-count"
+        },
+        {
+          "name": "bonusCredits",
+          "type": "Number",
+          "attr": "bonus-credits"
+        },
+        {
+          "name": "calendarType",
+          "type": "String",
+          "attr": "calendar-type"
+        },
+        {
+          "name": "continueDays",
+          "type": "Number",
+          "attr": "continue-days"
+        },
+        {
+          "name": "count",
+          "type": "Number",
+          "attr": "count"
+        },
+        {
+          "name": "currentTime",
+          "attr": "current-time"
+        },
+        {
+          "name": "endTime",
+          "attr": "end-time"
+        },
+        {
+          "name": "monthResignedMap",
+          "attr": "month-resigned-map"
+        },
+        {
+          "name": "monthSignedMap",
+          "attr": "month-signed-map"
+        },
+        {
+          "name": "showHeader",
+          "attr": "show-header"
+        },
+        {
+          "name": "signin",
+          "attr": "signin"
+        },
+        {
+          "name": "startTime",
+          "attr": "start-time"
+        },
+        {
+          "name": "todayIndex",
+          "type": "Number",
+          "attr": "today-index"
+        },
+        {
+          "name": "todaySigned",
+          "attr": "today-signed"
+        },
+        {
+          "name": "totalCredits",
+          "type": "Number",
+          "attr": "total-credits"
+        }
+      ]
+    },
+    {
+      "tag": "duiba-collapse",
+      "dependencies": [],
+      "componentClass": "Collapse",
+      "componentPath": "components/collapse/collapse.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/collapse/collapse.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "defaultCollapsed",
+          "attr": "default-collapsed"
+        },
+        {
+          "name": "onClick",
+          "attr": "on-click"
+        }
+      ],
+      "states": [
+        {
+          "name": "collapsed"
+        }
+      ],
+      "shadow": true
+    },
+    {
+      "tag": "my-button",
+      "dependencies": [],
+      "componentClass": "OperationList",
+      "componentPath": "components/my-button/my-button.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/my-button/my-button.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "onClick",
+          "type": "Any",
+          "attr": "on-click"
+        }
+      ],
+      "shadow": true
+    },
+    {
+      "tag": "operation-list",
+      "dependencies": [],
+      "componentClass": "OperationList",
+      "componentPath": "components/operation-list/operation-list.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/operation-list/operation-list.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "list",
+          "attr": "list"
+        }
+      ],
+      "shadow": true
+    }
+  ],
+  "collections": [],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "0.7.26",
+    "typescriptVersion": "2.8.3"
+  },
+  "bundles": []
+}

@@ -1,0 +1,2 @@
+/*! Built with http://stenciljs.com */
+const{h:t}=window.duiba;class n{render(){return t("button",{class:"my-button",onClick:this.onClick},t("slot",null))}static get is(){return"my-button"}static get encapsulation(){return"shadow"}static get properties(){return{onClick:{type:"Any",attr:"on-click"}}}static get style(){return""}}export{n as MyButton};
