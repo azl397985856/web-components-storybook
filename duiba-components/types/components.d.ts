@@ -29,10 +29,7 @@ declare global {
 
   namespace StencilComponents {
     interface DuibaCalendar {
-      'bonusActivityCount': number;
-      'bonusCredits': number;
       'calendarType': CalendarType;
-      'continueDays': number;
       'count': number;
       'currentTime': Date;
       'endTime': Date;
@@ -42,8 +39,6 @@ declare global {
       'signin': Function;
       'startTime': Date;
       'todayIndex': number;
-      'todaySigned': Boolean;
-      'totalCredits': number;
     }
   }
 
@@ -66,10 +61,7 @@ declare global {
   }
   namespace JSXElements {
     export interface DuibaCalendarAttributes extends HTMLAttributes {
-      'bonusActivityCount'?: number;
-      'bonusCredits'?: number;
       'calendarType'?: CalendarType;
-      'continueDays'?: number;
       'count'?: number;
       'currentTime'?: Date;
       'endTime'?: Date;
@@ -79,8 +71,6 @@ declare global {
       'signin'?: Function;
       'startTime'?: Date;
       'todayIndex'?: number;
-      'todaySigned'?: Boolean;
-      'totalCredits'?: number;
     }
   }
 }
@@ -90,6 +80,7 @@ declare global {
 
   namespace StencilComponents {
     interface DuibaCollapse {
+      'collapsed': Boolean;
       'defaultCollapsed': Boolean;
       'onClick': (collapsed) => void;
     }
@@ -114,6 +105,7 @@ declare global {
   }
   namespace JSXElements {
     export interface DuibaCollapseAttributes extends HTMLAttributes {
+      'collapsed'?: Boolean;
       'defaultCollapsed'?: Boolean;
       'onClick'?: (collapsed) => void;
     }

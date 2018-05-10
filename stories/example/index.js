@@ -9,6 +9,9 @@ import forceUpdate from "../../src/utils/forceUpdate";
 
 import styles from "./index.less";
 
+let basicCollapsed = false;
+let advancedCollapsed = true;
+
 function signin(date) {
   console.log("sigin with date：", date);
 }
@@ -19,7 +22,7 @@ function isEmpty(o) {
   if (Object.keys(o).length === 0) return true;
 }
 
-function toggle(config) {
+function toggle(config, collapsed) {
   if (config.count) {
     config.count = null;
   } else {
@@ -27,6 +30,8 @@ function toggle(config) {
   }
   // 初版组件通信方案：
   // 强制刷新页面（具体实现在utils/forceUpdate）
+  advancedCollapsed = !advancedCollapsed;
+  basicCollapsed = !basicCollapsed;
   forceUpdate();
 }
 
@@ -140,7 +145,9 @@ export default storiesOf("签到")
           ref={stencil(
             {},
             {
-              onClick: () => toggle(props)
+              onClick: collapsed => toggle(props, collapsed),
+              defaultCollapsed: false,
+              collapsed: basicCollapsed
             }
           )}
         />
@@ -169,7 +176,9 @@ export default storiesOf("签到")
           ref={stencil(
             {},
             {
-              onClick: () => toggle(props)
+              onClick: collapsed => toggle(props, collapsed),
+              defaultCollapsed: true,
+              collapsed: advancedCollapsed
             }
           )}
         />

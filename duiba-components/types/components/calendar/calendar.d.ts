@@ -1,6 +1,7 @@
 import '../../stencil.core';
 import '../../stencil.core';
 import '../../stencil.core';
+import '../../stencil.core';
 export declare class Calendar {
     config: CalendarConfig;
     signin: Function;

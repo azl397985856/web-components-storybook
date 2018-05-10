@@ -1,18 +1,16 @@
 export class Collapse {
     render() {
-        if (this.collapsed === undefined) {
-            this.collapsed = this.defaultCollapsed;
-        }
-        return (h("div", { class: `collapse arrow-${this.collapsed ? "down" : "up"}`, onClick: () => {
-                this.collapsed = !!!this.collapsed;
-                this.onClick && this.onClick(this.collapsed);
+        const collapsed = this.collapsed === undefined ? this.defaultCollapsed : this.collapsed;
+        return (h("div", { class: `collapse arrow-${collapsed ? "down" : "up"}`, onClick: () => {
+                this.onClick && this.onClick(!!!collapsed);
             } }));
     }
     static get is() { return "duiba-collapse"; }
     static get encapsulation() { return "shadow"; }
     static get properties() { return {
         "collapsed": {
-            "state": true
+            "type": "Any",
+            "attr": "collapsed"
         },
         "defaultCollapsed": {
             "type": "Any",

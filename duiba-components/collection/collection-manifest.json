@@ -14,24 +14,9 @@
       },
       "props": [
         {
-          "name": "bonusActivityCount",
-          "type": "Number",
-          "attr": "bonus-activity-count"
-        },
-        {
-          "name": "bonusCredits",
-          "type": "Number",
-          "attr": "bonus-credits"
-        },
-        {
           "name": "calendarType",
           "type": "String",
           "attr": "calendar-type"
-        },
-        {
-          "name": "continueDays",
-          "type": "Number",
-          "attr": "continue-days"
         },
         {
           "name": "count",
@@ -70,15 +55,6 @@
           "name": "todayIndex",
           "type": "Number",
           "attr": "today-index"
-        },
-        {
-          "name": "todaySigned",
-          "attr": "today-signed"
-        },
-        {
-          "name": "totalCredits",
-          "type": "Number",
-          "attr": "total-credits"
         }
       ]
     },
@@ -96,17 +72,16 @@
       },
       "props": [
         {
+          "name": "collapsed",
+          "attr": "collapsed"
+        },
+        {
           "name": "defaultCollapsed",
           "attr": "default-collapsed"
         },
         {
           "name": "onClick",
           "attr": "on-click"
-        }
-      ],
-      "states": [
-        {
-          "name": "collapsed"
         }
       ],
       "shadow": true

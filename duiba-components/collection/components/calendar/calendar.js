@@ -3,6 +3,7 @@ var CalendarType;
     CalendarType["Native"] = "native";
     CalendarType["Normal"] = "normal";
 })(CalendarType || (CalendarType = {}));
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
 function requireValidator(param) {
     Object.keys(param).forEach(field => {
         if (param[field] === null || param[field] === undefined) {
@@ -10,11 +11,51 @@ function requireValidator(param) {
         }
     });
 }
+function isSameYear(a, b) {
+    return new Date(a).getFullYear() === new Date(b).getFullYear();
+}
+function isSameMonth(a, b) {
+    return new Date(a).getMonth() === new Date(b).getMonth();
+}
+function isSameDate(a, b) {
+    return new Date(a).getDate() === new Date(b).getDate();
+}
+function isSameDay(a, b) {
+    return isSameYear(a, b) && isSameMonth(a, b) && isSameDate(a, b);
+}
+function findList(list, todayIndex, current) {
+    for (let i = 0; i < list.length; i++) {
+        const isCurrent = isSameDay(list[i], current);
+        if (isCurrent) {
+            if (i + 1 !== todayIndex) {
+                return findList(list.slice(1), todayIndex, current);
+            }
+            else {
+                return list;
+            }
+        }
+    }
+    return [];
+}
+// 截取日历
+function getDerivedDateList(list, todayIndex, calendarType, count, current) {
+    // 2. 长度为count
+    if (calendarType === "native")
+        return list;
+    if (!count)
+        return list;
+    if (list.length < count)
+        return list;
+    // 如果指定count， 则截取list，至满足以下条件:
+    // 1. 今天在todayIndex的位置
+    const derivedList = findList(list, todayIndex, current);
+    return derivedList.slice(0, count - derivedList.length);
+}
 // 生成日历的list，用于页面显示
 function getDateList({ startTime, endTime, currentTime, calendarType, todayIndex = 1, count }) {
-    const startDate = new Date(+startTime).getDate();
-    const endDate = new Date(+endTime).getDate();
-    const currentDate = new Date(+currentTime).getDate();
+    const start = new Date(+startTime).getTime();
+    const end = new Date(+endTime).getTime();
+    const current = new Date(+currentTime).getTime();
     const list = [];
     // 有count不显示原生的效果
     if (!count && calendarType === "native") {
@@ -23,18 +64,10 @@ function getDateList({ startTime, endTime, currentTime, calendarType, todayIndex
             list.push("");
         }
     }
-    for (let i = startDate; count && todayIndex
-        ? i <= count + (currentDate - todayIndex)
-        : i <= endDate; i++) {
+    for (let i = start; i <= end; i = i + MS_PER_DAY) {
         list.push(i);
     }
-    // 如果指定count， 则截取list，至满足以下条件:
-    // 1. 今天在todayIndex的位置
-    // 2. 长度为count
-    if ((todayIndex && calendarType !== "native") || (count && todayIndex)) {
-        return list.slice(currentDate - todayIndex);
-    }
-    return list;
+    return getDerivedDateList(list, todayIndex, calendarType, count, current);
 }
 // 根据是否签到，是否补签，是否是今天，生成css class
 // 今天 - today
@@ -78,36 +111,24 @@ export class Calendar {
         });
         return (h("div", { class: "calendar" },
             showHeader && (h("div", { class: "calendar-header" }, WEEK_DAYS.map(day => (h("span", { class: "calendar-header-item" }, day))))),
-            h("div", { class: "calendar-body" }, list.map(date => (h("span", { class: `calendar-body-cell ${getClassName({
-                    date,
+            h("div", { class: "calendar-body" }, list.map(timestamp => (h("span", { class: `calendar-body-cell ${getClassName({
+                    date: new Date(timestamp).getDate(),
                     currentTime,
                     monthResignedMap,
                     monthSignedMap
                 })}`, onClick: this.handleCellClick.bind(this, {
                     monthResignedMap,
                     monthSignedMap,
-                    date,
+                    date: new Date(timestamp).getDate(),
                     signin,
                     currentTime
-                }) }, date))))));
+                }) }, timestamp && new Date(timestamp).getDate()))))));
     }
     static get is() { return "duiba-calendar"; }
     static get properties() { return {
-        "bonusActivityCount": {
-            "type": Number,
-            "attr": "bonus-activity-count"
-        },
-        "bonusCredits": {
-            "type": Number,
-            "attr": "bonus-credits"
-        },
         "calendarType": {
             "type": String,
             "attr": "calendar-type"
-        },
-        "continueDays": {
-            "type": Number,
-            "attr": "continue-days"
         },
         "count": {
             "type": Number,
@@ -144,14 +165,6 @@ export class Calendar {
         "todayIndex": {
             "type": Number,
             "attr": "today-index"
-        },
-        "todaySigned": {
-            "type": "Any",
-            "attr": "today-signed"
-        },
-        "totalCredits": {
-            "type": Number,
-            "attr": "total-credits"
         }
     }; }
     static get style() { return "/**style-placeholder:duiba-calendar:**/"; }
