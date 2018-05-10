@@ -1,9 +1,7 @@
 import { Table } from "antd";
 
-let dataSource = [];
-
 function getAPIs(api) {
-  dataSource = Object.values(api)
+  return Object.values(api)
     .filter(field => field.api)
     .map(field => ({
       ...field.api,
@@ -35,6 +33,6 @@ const columns = [
 ];
 export default function APIGrid({ api }) {
   if (!api) return "";
-  getAPIs(api);
-  return <Table dataSource={dataSource} columns={columns} />;
+
+  return <Table dataSource={getAPIs(api)} columns={columns} />;
 }
