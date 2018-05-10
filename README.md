@@ -103,7 +103,7 @@ type should be one the types listed below:
 
 an example of the api
 
-```json
+```js
 
  {
   signin: { type: Function },
