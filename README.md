@@ -222,6 +222,8 @@ an example of the api
 
 ```
 
+Finally, DON'T forget register your stories at stories/index.js
+
 ## Deploy
 
 ```bash
