@@ -42,7 +42,7 @@ More details about writting a story, please move to the api section
 
 ## API
 
-### storiesOf
+### storiesOf('componentName')
 the core api is `storiesOf`.
 
 storiesOf is a funtion which take componentName in and
@@ -50,19 +50,10 @@ return this(an Object).
 
 > This action will add menu to the left.
 
-```js
-
-// String => Object
-storiesOf('componentName')
-
-```
-
 the returned Object(this) has methods below,
 and all of them return this, just like storiesOf itself.
 
-### add
-
-`add(suiteName, function)`
+### add(suiteName, function)
 
 an example of the `function`
 
@@ -106,15 +97,12 @@ export default {
 
 ```
 
-### desc
-
-`desc(desc)`
+### desc(desc)
 
 > This action will add description to the right panel
 
-### api
+### api(api)
 
-`api(api)`
 
 > This action will add api to the right panel, playground will be added too.
 
