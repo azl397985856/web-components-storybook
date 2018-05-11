@@ -77,6 +77,32 @@ duiba-calendar can be either a react component or web component
 
 > This action will add subMenu to the left appended to the menu which you defined above.
 
+Your component need props from upstream at most cases, 
+and if you do, you should put the props into the model with namespace.
+
+> namespace is a place where we put your components in.
+it consist of two parts , `${componentName}/${suiteName}`
+
+something like this:
+
+```js
+import moment from "moment";
+
+export default {
+  namespace: "codelab",
+  state: {
+    "/example/basic": {
+      showHeader: false,
+      startTime: moment(1512132974336),
+      endTime: moment(1514724974336),
+      currentTime: moment(1512432000000)
+    }
+  },
+};
+
+
+```
+
 - desc(desc)
 
 > This action will add description to the right panel
@@ -204,6 +230,19 @@ npm run build
 
 ```
 
+## Style Guide
+
+the recommanded way to write your stories
+
+```
+  --- stories
+     ---- example
+       ----- api.js       // api of the component
+       ----- index.js     // main
+       ----- index.less   // style
+
+```
+ 
 ## Licence
 MIT
 
