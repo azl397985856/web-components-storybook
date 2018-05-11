@@ -42,6 +42,7 @@ More details about writting a story, please move to the api section
 
 ## API
 
+### storiesOf
 the core api is `storiesOf`.
 
 storiesOf is a funtion which take componentName in and
@@ -58,6 +59,8 @@ storiesOf('componentName')
 
 the returned Object(this) has methods below,
 and all of them return this, just like storiesOf itself.
+
+### add
 
 - add(suiteName, function)
 
@@ -103,9 +106,13 @@ export default {
 
 ```
 
+### desc
+
 - desc(desc)
 
 > This action will add description to the right panel
+
+### api
 
 - api(api)
 
