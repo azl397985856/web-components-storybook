@@ -1,128 +1,37 @@
-import storiesOf from "../index";
+import storiesOf from "../storyCore";
 
 // there is a problem to pass object/array down as props when using web-components
 // and that's a bug, util react 17 released which will fix the bug, we hack that
 // see more: https://github.com/ionic-team/stencil/issues/134
 import stencil from "../../src/utils/stencil";
-
 import forceUpdate from "../../src/utils/forceUpdate";
+
+import calendarAPI from "./api";
 
 import styles from "./index.less";
 
 let basicCollapsed = false;
 let advancedCollapsed = true;
 
-function signin(date) {
-  console.log("sigin with date：", date);
-}
-
-function isEmpty(o) {
-  if (!o) return true;
-  if (o.length === 0) return true;
+function isEmptyObject(o) {
+  if (Object.prototype.toString.call(o) !== "[object Object]") return false;
   if (Object.keys(o).length === 0) return true;
+  return false;
 }
 
+// 这里涉及组件间相互通信
+// 暂时使用forceUpdate， 将来优化
 function toggle(config, collapsed) {
   if (config.count) {
     config.count = null;
   } else {
     config.count = 14;
   }
-  // 初版组件通信方案：
-  // 强制刷新页面（具体实现在utils/forceUpdate）
+
   advancedCollapsed = !advancedCollapsed;
   basicCollapsed = !basicCollapsed;
   forceUpdate();
 }
-
-const calendarAPI = {
-  signin: { type: Function },
-  showHeader: {
-    type: Boolean,
-    api: {
-      name: "showHeader",
-      desc: "是否显示日历头部",
-      type: "Boolean",
-      defaultValue: ""
-    }
-  },
-  startTime: {
-    type: Date,
-    api: {
-      name: "startTime",
-      desc: "日历的开始时间",
-      type: "TimeStamp",
-      defaultValue: ""
-    }
-  },
-  endTime: {
-    type: Date,
-    api: {
-      name: "endTime",
-      desc: "日历的结束时间",
-      type: "TimeStamp",
-      defaultValue: ""
-    }
-  },
-  currentTime: {
-    type: Date,
-    api: {
-      name: "currentTime",
-      desc: "当前时间",
-      type: "TimeStamp",
-      defaultValue: ""
-    }
-  },
-  calendarType: {
-    type: String,
-    options: ["native", "normal"],
-    api: {
-      name: "calendarType",
-      desc: "枚举值（native | normal）",
-      type: "String",
-      defaultValue: ""
-    }
-  },
-
-  monthResignedMap: {
-    type: Object,
-    api: {
-      name: "monthResignedMap",
-      desc: "签到的映射表；形如{1: true, 11: true}",
-      type: "Object",
-      defaultValue: ""
-    }
-  },
-  monthSignedMap: {
-    type: Object,
-    api: {
-      name: "monthSignedMap",
-      desc: "补签的映射表；形如{1: true, 11: true}",
-      type: "Object",
-      defaultValue: ""
-    }
-  },
-  count: {
-    type: Number,
-    title: "",
-    api: {
-      name: "count",
-      desc: "折叠起来的时候显示的日期个数",
-      type: "Number",
-      defaultValue: ""
-    }
-  },
-  todayIndex: {
-    type: Number,
-    title: "",
-    api: {
-      name: "todayIndex",
-      desc: "折叠的时候今天显示在第几个",
-      type: "Number",
-      defaultValue: ""
-    }
-  }
-};
 
 export default storiesOf("签到")
   .add("基础用法", props => (
@@ -131,12 +40,7 @@ export default storiesOf("签到")
         ref={stencil(
           {},
 
-          isEmpty(props)
-            ? {}
-            : {
-                ...props,
-                signin
-              }
+          isEmptyObject(props) ? {} : props
         )}
       />
 
@@ -162,12 +66,7 @@ export default storiesOf("签到")
         ref={stencil(
           {},
 
-          isEmpty(props)
-            ? {}
-            : {
-                ...props,
-                signin
-              }
+          isEmptyObject(props) ? {} : props
         )}
       />
 

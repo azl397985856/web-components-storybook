@@ -13,8 +13,6 @@ export default {
       endTime: moment(1514724974336),
       currentTime: moment(1512432000000),
       calendarType: "native",
-      ruleDescription: "123",
-      crecord: "456",
       monthResignedMap: {
         3: true,
         8: true
@@ -33,8 +31,6 @@ export default {
       endTime: moment(1514724974336),
       currentTime: moment(1512432000000),
       calendarType: "nomal",
-      ruleDescription: "123",
-      crecord: "456",
       monthResignedMap: {
         3: true,
         8: true

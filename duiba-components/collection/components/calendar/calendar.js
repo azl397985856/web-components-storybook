@@ -12,16 +12,16 @@ function requireValidator(param) {
     });
 }
 function isSameYear(a, b) {
-    return new Date(a).getFullYear() === new Date(b).getFullYear();
+    return new Date(+a).getFullYear() === new Date(+b).getFullYear();
 }
 function isSameMonth(a, b) {
-    return new Date(a).getMonth() === new Date(b).getMonth();
+    return new Date(+a).getMonth() === new Date(+b).getMonth();
 }
 function isSameDate(a, b) {
-    return new Date(a).getDate() === new Date(b).getDate();
+    return new Date(+a).getDate() === new Date(+b).getDate();
 }
 function isSameDay(a, b) {
-    return isSameYear(a, b) && isSameMonth(a, b) && isSameDate(a, b);
+    return isSameYear(+a, b) && isSameMonth(a, b) && isSameDate(a, b);
 }
 function findList(list, todayIndex, current) {
     for (let i = 0; i < list.length; i++) {
@@ -38,10 +38,8 @@ function findList(list, todayIndex, current) {
     return [];
 }
 // 截取日历
-function getDerivedDateList(list, todayIndex, calendarType, count, current) {
+function getDerivedDateList(list, todayIndex, count, current) {
     // 2. 长度为count
-    if (calendarType === "native")
-        return list;
     if (!count)
         return list;
     if (list.length < count)
@@ -67,7 +65,7 @@ function getDateList({ startTime, endTime, currentTime, calendarType, todayIndex
     for (let i = start; i <= end; i = i + MS_PER_DAY) {
         list.push(i);
     }
-    return getDerivedDateList(list, todayIndex, calendarType, count, current);
+    return getDerivedDateList(list, todayIndex, count, current);
 }
 // 根据是否签到，是否补签，是否是今天，生成css class
 // 今天 - today
