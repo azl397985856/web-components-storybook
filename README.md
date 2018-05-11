@@ -62,7 +62,7 @@ and all of them return this, just like storiesOf itself.
 
 ### add
 
-- add(suiteName, function)
+`add(suiteName, function)`
 
 an example of the `function`
 
@@ -108,13 +108,13 @@ export default {
 
 ### desc
 
-- desc(desc)
+`desc(desc)`
 
 > This action will add description to the right panel
 
 ### api
 
-- api(api)
+`api(api)`
 
 > This action will add api to the right panel, playground will be added too.
 
