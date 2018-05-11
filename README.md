@@ -36,7 +36,7 @@ npm run start
 ## Write Stories
 All the stories should be written inside the stories folder which located at the root folder.
 
-You can follow the structions of the example folder.
+You can follow the structions of the stories/example and stories/calendar folder.
 
 More details about writting a story, please move to the api section
 
@@ -57,7 +57,7 @@ storiesOf('componentName')
 ```
 
 the returned Object(this) has methods below,
-and all of them return this, just like soriesOf itself.
+and all of them return this, just like storiesOf itself.
 
 - add(suiteName, function)
 
