@@ -93,10 +93,6 @@ name of your component
 
 ### api(api)
 
-# <<<<<<< HEAD
-
-> > > > > > > bab5fa4b3072b5d09172b508f1fc4645b642c6b4
-
 > This action will add api to the right panel, playground will be added too.
 
 api is an Object, basicly filled with `type` and `api`,
