@@ -23,7 +23,8 @@ function replaceFunctionWithNoop(v) {
 
   return JSON.stringify(v);
 }
-function getCode(props, cmpName = "duiba-calendar") {
+function getCode(props, cmpName = "Component") {
+  if (!props) return;
   const propsStr = Object.keys(props)
     .map(prop => `${prop}={${replaceFunctionWithNoop(props[prop])}}`)
     .join("\n    ");
@@ -66,11 +67,13 @@ function IndexPage({ match, codelab, location }) {
                       </div>
 
                       <div className={styles["code-box-wrapper"]}>
-                        <CodeBox
-                          code={getCode(codelab[namespace])}
-                          namespace={namespace}
-                          activeKey={codelab[namespace].activeKey}
-                        />
+                        {codelab[namespace] && (
+                          <CodeBox
+                            code={getCode(codelab[namespace], item.cmpName)}
+                            namespace={namespace}
+                            activeKey={codelab[namespace].activeKey}
+                          />
+                        )}
                       </div>
 
                       <CodeLab api={item.api} namespace={namespace} />

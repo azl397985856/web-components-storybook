@@ -64,6 +64,7 @@ export default storiesOf("签到")
       </div>
     </div>
   ))
+  .cmpName("duiba-calendar")
   .props({
     signin: date =>
       actionLogger({
@@ -135,4 +136,5 @@ export default storiesOf("签到")
     todayIndex: 1,
     count: 14
   })
+  .cmpName("duiba-calendar")
   .api(calendarAPI);

@@ -25,6 +25,10 @@ function storiesOf(name) {
     show() {
       return this;
     },
+    cmpName(cmpName) {
+      list[name][this.subname].cmpName = cmpName;
+      return this;
+    },
     getStory() {
       return list;
     }
