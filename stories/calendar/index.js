@@ -2,6 +2,8 @@ import moment from "moment";
 
 import storiesOf from "../storyCore";
 
+import al from "../../src/plugins/storybook/actionLogger";
+
 // there is a problem to pass object/array down as props when using web-components
 // and that's a bug, util react 17 released which will fix the bug, we hack that
 // see more: https://github.com/ionic-team/stencil/issues/134
@@ -12,9 +14,7 @@ import calendarAPI from "./api";
 
 import styles from "./index.less";
 
-function signin(date) {
-  console.log("sigin with date：", date);
-}
+const actionLogger = al.invoke;
 
 let basicCollapsed = false;
 let advancedCollapsed = true;
@@ -65,7 +65,11 @@ export default storiesOf("签到")
     </div>
   ))
   .props({
-    signin,
+    signin: date =>
+      actionLogger({
+        payload: `sigin with date：${date}`,
+        name: "签到"
+      }),
     showHeader: true,
     startTime: moment(1512132974336),
     endTime: moment(1514724974336),
@@ -110,7 +114,11 @@ export default storiesOf("签到")
   ))
   .desc("不显示日历头部(初始化为折叠,当前默认显示在第1天，非原生日历样式)")
   .props({
-    signin,
+    signin: date =>
+      actionLogger({
+        payload: `sigin with date：${date}`,
+        name: "签到"
+      }),
     showHeader: false,
     startTime: moment(1512132974336),
     endTime: moment(1514724974336),

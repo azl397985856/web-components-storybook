@@ -11,6 +11,8 @@ const app = dva();
 // 3. Model
 app.model(require("./models/codelab").default);
 
+app.model(require("./plugins/storybook/actionLogger").default.model);
+
 // 4. Router
 app.router(require("./router").default);
 

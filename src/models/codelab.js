@@ -34,5 +34,11 @@ export default {
         }
       };
     }
+  },
+  subscriptions: {
+    setup({ history, dispatch }) {
+      // hack: 将dispatch注入到全局
+      window.dispatch = dispatch;
+    }
   }
 };

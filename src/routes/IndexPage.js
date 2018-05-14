@@ -8,7 +8,12 @@ import Sider from "../components/Sider";
 import CodeLab from "../components/CodeLab";
 import APIGrid from "../components/APIGrid";
 
+// plugins
+import actionLogger from "../plugins/storybook/actionLogger";
+
 import styles from "./IndexPage.css";
+
+const ActionLogger = actionLogger.render;
 
 function IndexPage({ match, codelab, location }) {
   const { pathname } = location;
@@ -18,6 +23,8 @@ function IndexPage({ match, codelab, location }) {
   return (
     <div className={styles.wrapper}>
       <Sider stories={stories} />
+
+      <ActionLogger />
 
       {Object.keys(stories).map(subKey => (
         <Route
