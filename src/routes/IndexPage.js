@@ -14,8 +14,6 @@ import actionLogger from "../plugins/storybook/actionLogger";
 
 import styles from "./IndexPage.css";
 
-import "./hljs.css";
-
 const ActionLogger = actionLogger.render;
 
 function replaceFunctionWithNoop(v) {
