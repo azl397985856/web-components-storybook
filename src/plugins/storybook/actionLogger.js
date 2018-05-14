@@ -1,4 +1,4 @@
-import { Collapse } from "antd";
+import { Collapse, Icon } from "antd";
 import { connect } from "dva";
 
 import styles from "./actionLogger.less";
@@ -22,7 +22,25 @@ const render = connect(({ pluginsLogger }) => ({
   return (
     <div className={styles.wrapper}>
       <Collapse>
-        <Panel header="ACTIONS">
+        <Panel
+          header={
+            <div>
+              ACTIONS
+              <span
+                onClick={e => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  return dispatch({
+                    type: "pluginsLogger/clear"
+                  });
+                }}
+                className={styles.delete}
+              >
+                <Icon type="delete" />
+              </span>
+            </div>
+          }
+        >
           {logs && logs.length > 0
             ? logs.map(log => (
                 <div>
