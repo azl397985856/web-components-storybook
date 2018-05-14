@@ -7,13 +7,33 @@ import stories from "../../stories/index";
 import Sider from "../components/Sider";
 import CodeLab from "../components/CodeLab";
 import APIGrid from "../components/APIGrid";
+import CodeBox from "../components/CodeBox";
 
 // plugins
 import actionLogger from "../plugins/storybook/actionLogger";
 
 import styles from "./IndexPage.css";
 
+import "./hljs.css";
+
 const ActionLogger = actionLogger.render;
+
+function replaceFunctionWithNoop(v) {
+  if (String(v).indexOf("function") !== -1) {
+    return `function() {}`;
+  }
+
+  return JSON.stringify(v);
+}
+function getCode(props, cmpName = "duiba-calendar") {
+  const propsStr = Object.keys(props)
+    .map(prop => `${prop}={${replaceFunctionWithNoop(props[prop])}}`)
+    .join("\n    ");
+  return `
+  <${cmpName}
+    ${propsStr}
+  />`;
+}
 
 function IndexPage({ match, codelab, location }) {
   const { pathname } = location;
@@ -46,6 +66,15 @@ function IndexPage({ match, codelab, location }) {
                       <div className={styles.panel}>
                         {item.render(codelab[namespace])}
                       </div>
+
+                      <div className={styles["code-box-wrapper"]}>
+                        <CodeBox
+                          code={getCode(codelab[namespace])}
+                          namespace={namespace}
+                          activeKey={codelab[namespace].activeKey}
+                        />
+                      </div>
+
                       <CodeLab api={item.api} namespace={namespace} />
 
                       <div className={styles["api-grid"]}>

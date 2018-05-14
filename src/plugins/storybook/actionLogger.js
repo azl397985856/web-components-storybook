@@ -42,8 +42,8 @@ const render = connect(({ pluginsLogger }) => ({
           }
         >
           {logs && logs.length > 0
-            ? logs.map(log => (
-                <div>
+            ? logs.map((log, i) => (
+                <div key={i}>
                   <span className={styles["item-name"]}>{log.name}</span> :{" "}
                   {log.payload}
                 </div>
@@ -84,7 +84,7 @@ export default {
         // 监听 history 变化，清除日志
         return history.listen(({ pathname }) => {
           dispatch({
-            type: "pluginsLogger/clear"
+            type: "clear"
           });
         });
       }
