@@ -87,6 +87,10 @@ props({
 
 > This action will add description to the right panel
 
+### cmpName(cmpName)
+
+name of your component
+
 ### api(api)
 
 # <<<<<<< HEAD
