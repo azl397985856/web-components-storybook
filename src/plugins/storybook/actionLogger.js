@@ -54,6 +54,21 @@ export default {
             payload
           })
         };
+      },
+      clear() {
+        return {
+          logs: []
+        };
+      }
+    },
+    subscriptions: {
+      setup({ history, dispatch }) {
+        // 监听 history 变化，清除日志
+        return history.listen(({ pathname }) => {
+          dispatch({
+            type: "pluginsLogger/clear"
+          });
+        });
       }
     }
   }
