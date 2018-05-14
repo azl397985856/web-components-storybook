@@ -1,5 +1,6 @@
 # Intro
-Storybook designed  for web components  inspired by react-storybook.
+
+Storybook designed for web components inspired by react-storybook.
 
 You can either write web components or react components storybook here.
 
@@ -10,30 +11,25 @@ It's just a playground! o(^▽^)o
 `clone repository`
 
 ```bash
-
 git clone https://github.com/azl397985856/web-components-storybook.git
 
 git remote rm origin
-
 ```
 
 `install dependencies`
 
 ```bash
-
 npm i
-
 ```
 
 `dev`
 
 ```
 npm run start
-
 ```
 
-
 ## Write Stories
+
 All the stories should be written inside the stories folder which located at the root folder.
 
 You can follow the structions of the stories/example and stories/calendar folder.
@@ -43,10 +39,11 @@ More details about writting a story, please move to the api section
 ## API
 
 ### storiesOf('componentName')
+
 the core api is `storiesOf`.
 
 storiesOf is a funtion which take componentName in and
-return this(an Object). 
+return this(an Object).
 
 > This action will add menu to the left.
 
@@ -58,43 +55,32 @@ and all of them return this, just like storiesOf itself.
 an example of the `function`
 
 ```js
-
-props => (
-      <duiba-calendar
-        startTime={props.startTime}
-      />
-)
-
+props => <duiba-calendar startTime={props.startTime} />;
 ```
 
 duiba-calendar can be either a react component or web component
 
 > This action will add subMenu to the left appended to the menu which you defined above.
 
-Your component need props from upstream at most cases, 
+### props
+
+Your component need props from upstream at most cases,
 and if you do, you should put the props into the model with namespace.
 
+All you should do is putting the props into the props method provided.
+
 > namespace is a place where we put your components in.
-it consist of two parts , `${componentName}/${suiteName}`
+> it consist of two parts , `${componentName}/${suiteName}`
 
 something like this:
 
 ```js
-import moment from "moment";
-
-export default {
-  namespace: "codelab",
-  state: {
-    "/example/basic": {
-      showHeader: false,
-      startTime: moment(1512132974336),
-      endTime: moment(1514724974336),
-      currentTime: moment(1512432000000)
-    }
-  },
-};
-
-
+props({
+  showHeader: false,
+  startTime: 1512132974336,
+  endTime: 1514724974336,
+  currentTime: 1512432000000
+});
 ```
 
 ### desc(desc)
@@ -103,29 +89,27 @@ export default {
 
 ### api(api)
 
-
 > This action will add api to the right panel, playground will be added too.
 
 api is an Object, basicly filled with `type` and `api`,
 
 type should be one the types listed below:
 
-- Number
+* Number
 
-- Object('nothing to display, to be implemented')
+* Object('nothing to display, to be implemented')
 
-- Boolean
+* Boolean
 
-- Date
+* Date
 
-- String(if the api iteself contains options, will render Select instead)
+* String(if the api iteself contains options, will render Select instead)
 
 `api` should have props of `name`(required) , 'desc', 'type', 'defaultValue'
 
 an example of the api
 
 ```js
-
  {
   signin: { type: Function },
   showHeader: {
@@ -214,7 +198,6 @@ an example of the api
     }
   }
 }
-
 ```
 
 Finally, DON'T forget register your stories at stories/index.js
@@ -222,9 +205,7 @@ Finally, DON'T forget register your stories at stories/index.js
 ## Deploy
 
 ```bash
-
 npm run build
-
 ```
 
 ## Style Guide
@@ -237,10 +218,10 @@ the recommanded way to write your stories
        ----- api.js       // api of the component
        ----- index.js     // main
        ----- index.less   // style
-
 ```
- 
+
 ## Licence
+
 MIT
 
 ## Contribution

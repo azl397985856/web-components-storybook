@@ -13,6 +13,8 @@ import styles from "./IndexPage.css";
 function IndexPage({ match, codelab, location }) {
   const { pathname } = location;
 
+  const namespace = pathname.slice(1);
+
   return (
     <div className={styles.wrapper}>
       <Sider stories={stories} />
@@ -35,9 +37,9 @@ function IndexPage({ match, codelab, location }) {
                         <div>{item.desc}</div>
                       </div>
                       <div className={styles.panel}>
-                        {item.render(codelab[pathname])}
+                        {item.render(codelab[namespace])}
                       </div>
-                      <CodeLab api={item.api} pathname={pathname} />
+                      <CodeLab api={item.api} namespace={namespace} />
 
                       <div className={styles["api-grid"]}>
                         <APIGrid api={item.api} />

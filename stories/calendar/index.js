@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import storiesOf from "../storyCore";
 
 // there is a problem to pass object/array down as props when using web-components
@@ -9,6 +11,10 @@ import forceUpdate from "../../src/utils/forceUpdate";
 import calendarAPI from "./api";
 
 import styles from "./index.less";
+
+function signin(date) {
+  console.log("sigin with date：", date);
+}
 
 let basicCollapsed = false;
 let advancedCollapsed = true;
@@ -58,6 +64,24 @@ export default storiesOf("签到")
       </div>
     </div>
   ))
+  .props({
+    signin,
+    showHeader: true,
+    startTime: moment(1512132974336),
+    endTime: moment(1514724974336),
+    currentTime: moment(1512432000000),
+    calendarType: "native",
+    monthResignedMap: {
+      3: true,
+      8: true
+    },
+    monthSignedMap: {
+      11: true,
+      22: true
+    },
+    todayIndex: 3,
+    count: null
+  })
   .desc("显示日历头部(初始化为展开，当前默认显示在第3天，原生日历样式)")
   .api(calendarAPI)
   .add("扩展用法", props => (
@@ -85,4 +109,22 @@ export default storiesOf("签到")
     </div>
   ))
   .desc("不显示日历头部(初始化为折叠,当前默认显示在第1天，非原生日历样式)")
+  .props({
+    signin,
+    showHeader: false,
+    startTime: moment(1512132974336),
+    endTime: moment(1514724974336),
+    currentTime: moment(1512432000000),
+    calendarType: "nomal",
+    monthResignedMap: {
+      3: true,
+      8: true
+    },
+    monthSignedMap: {
+      11: true,
+      22: true
+    },
+    todayIndex: 1,
+    count: 14
+  })
   .api(calendarAPI);

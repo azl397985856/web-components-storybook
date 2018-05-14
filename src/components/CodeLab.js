@@ -33,7 +33,7 @@ function CodeLabItem({ itemKey, children }) {
 
 export default connect(({ codelab }) => ({
   codelab
-}))(function CodeLab({ api, dispatch, codelab, pathname: namespace }) {
+}))(function CodeLab({ api, dispatch, codelab, namespace }) {
   if (!api) return "Please provide apis of the component~";
 
   function getCodelabItemMixin(key, value, namespace) {
