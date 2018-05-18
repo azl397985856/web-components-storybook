@@ -65,11 +65,17 @@ export default {
     },
     reducers: {
       log(state, { name, payload }) {
+        const namespace = window.location.hash.slice(
+          0,
+          window.location.hash.indexOf("?")
+        );
+
         return {
           ...state,
           logs: state.logs.concat({
             name,
-            payload
+            payload,
+            namespace
           })
         };
       },
@@ -77,14 +83,25 @@ export default {
         return {
           logs: []
         };
+      },
+      clearByNamespace(state, { payload: namespace }) {
+        return {
+          ...state,
+          logs: state.logs.filter(log => log.namespace === namespace)
+        };
       }
     },
     subscriptions: {
       setup({ history, dispatch }) {
         // 监听 history 变化，清除日志
-        return history.listen(({ pathname }) => {
+        return history.listen(() => {
+          const namespace = window.location.hash.slice(
+            0,
+            window.location.hash.indexOf("?")
+          );
           dispatch({
-            type: "clear"
+            type: "clearByNamespace",
+            payload: namespace
           });
         });
       }

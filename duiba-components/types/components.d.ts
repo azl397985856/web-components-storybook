@@ -116,6 +116,49 @@ declare global {
 declare global {
 
   namespace StencilComponents {
+    interface DuibaModal {
+      'height': string;
+      'onClose': (evt: Event) => void;
+      'subTitle': string;
+      'title': string;
+      'visible': boolean;
+      'width': string;
+    }
+  }
+
+  interface HTMLDuibaModalElement extends StencilComponents.DuibaModal, HTMLStencilElement {}
+
+  var HTMLDuibaModalElement: {
+    prototype: HTMLDuibaModalElement;
+    new (): HTMLDuibaModalElement;
+  };
+  interface HTMLElementTagNameMap {
+    'duiba-modal': HTMLDuibaModalElement;
+  }
+  interface ElementTagNameMap {
+    'duiba-modal': HTMLDuibaModalElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'duiba-modal': JSXElements.DuibaModalAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface DuibaModalAttributes extends HTMLAttributes {
+      'height'?: string;
+      'onClose'?: (evt: Event) => void;
+      'subTitle'?: string;
+      'title'?: string;
+      'visible'?: boolean;
+      'width'?: string;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
     interface MyButton {
       'onClick': any;
     }
@@ -174,6 +217,39 @@ declare global {
   namespace JSXElements {
     export interface OperationListAttributes extends HTMLAttributes {
       'list'?: Array<OperationItem>;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface PrizeList {
+      'list': Array<Prize>;
+    }
+  }
+
+  interface HTMLPrizeListElement extends StencilComponents.PrizeList, HTMLStencilElement {}
+
+  var HTMLPrizeListElement: {
+    prototype: HTMLPrizeListElement;
+    new (): HTMLPrizeListElement;
+  };
+  interface HTMLElementTagNameMap {
+    'prize-list': HTMLPrizeListElement;
+  }
+  interface ElementTagNameMap {
+    'prize-list': HTMLPrizeListElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'prize-list': JSXElements.PrizeListAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface PrizeListAttributes extends HTMLAttributes {
+      'list'?: Array<Prize>;
     }
   }
 }

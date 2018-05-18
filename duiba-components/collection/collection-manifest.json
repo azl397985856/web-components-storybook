@@ -87,6 +87,50 @@
       "shadow": true
     },
     {
+      "tag": "duiba-modal",
+      "dependencies": [],
+      "componentClass": "Calendar",
+      "componentPath": "components/modal/modal.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/modal/modal.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "height",
+          "type": "String",
+          "attr": "height"
+        },
+        {
+          "name": "onClose",
+          "attr": "on-close"
+        },
+        {
+          "name": "subTitle",
+          "type": "String",
+          "attr": "sub-title"
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "attr": "title"
+        },
+        {
+          "name": "visible",
+          "type": "Boolean",
+          "attr": "visible"
+        },
+        {
+          "name": "width",
+          "type": "String",
+          "attr": "width"
+        }
+      ]
+    },
+    {
       "tag": "my-button",
       "dependencies": [],
       "componentClass": "OperationList",
@@ -126,6 +170,25 @@
         }
       ],
       "shadow": true
+    },
+    {
+      "tag": "prize-list",
+      "dependencies": [],
+      "componentClass": "Calendar",
+      "componentPath": "components/pirze-list/priz-list.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/pirze-list/prize-list.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "list",
+          "attr": "list"
+        }
+      ]
     }
   ],
   "collections": [],

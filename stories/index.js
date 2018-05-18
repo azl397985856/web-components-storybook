@@ -1,7 +1,7 @@
 import calendar from "./calendar/";
-import example from "./example/";
+import modal from "./modal/";
 
 export default {
   ...calendar.getStory(),
-  ...example.getStory()
+  ...modal.getStory()
 };

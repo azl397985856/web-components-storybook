@@ -1,0 +1,53 @@
+.prize-list {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  width: 100%;
+}
+
+.prize-wrapper {
+  position: absolute;
+  bottom: 0;
+}
+
+.prize-tag {
+  position: absolute;
+  z-index: 2;
+  top: 40px;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(//yun.duiba.com.cn/upload/r1CRf1476708099539.png);
+}
+.prize-item {
+  display: inline-block;
+  text-align: center;
+  margin: 0 8px;
+}
+
+.prize-img-box {
+  display: inline-block;
+  overflow: hidden;
+  height: 52px;
+  width: 52px;
+  background-color: #fff;
+  border: 2px solid #044600;
+}
+
+.prize-img {
+  display: block;
+  width: 45px;
+  margin: 1.5px auto 0;
+}
+.prize-name {
+  font-size: 10px;
+  overflow: hidden;
+  padding: 5.5px 0;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: -20px;
+}
