@@ -1,6 +1,5 @@
 import { InputNumber, Switch, DatePicker, Select, Input } from "antd";
 import { Component } from "react";
-import { connect } from "dva";
 
 import styles from "./CodeLab.less";
 
@@ -22,6 +21,29 @@ function getComponent(key, api, mapper) {
   return mapper[type] && mapper[type](api[key], key);
 }
 
+function getCodelabItemMixin({
+  key,
+  value,
+  namespace,
+  paths,
+  onType,
+  dispatch
+}) {
+  const d = v =>
+    dispatch({
+      type: "codelab/update",
+      payload: {
+        [key]: !paths ? v : path(paths, v)
+      },
+      namespace
+    });
+  return {
+    [onType ? onType : "onChange"]: d,
+    value,
+    key
+  };
+}
+
 function CodeLabItem({ itemKey, children }) {
   return (
     <div className={styles["code-lab-item"]}>
@@ -31,117 +53,118 @@ function CodeLabItem({ itemKey, children }) {
   );
 }
 
+function getMapper({ codelab, namespace, dispatch }) {
+  return {
+    Object: "", // Object什么都不展示
+    Number({ title, ...rest }, key) {
+      return (
+        <CodeLabItem itemKey={key} key={key}>
+          <InputNumber
+            defaultValue={0}
+            {...getCodelabItemMixin({
+              key,
+              value: codelab[namespace][key],
+              namespace,
+              dispatch
+            })}
+          />
+        </CodeLabItem>
+      );
+    },
+    String({ title, ...rest }, key) {
+      return (
+        <CodeLabItem itemKey={key} key={key}>
+          <Input
+            {...getCodelabItemMixin({
+              key,
+              value: codelab[namespace][key],
+              namespace,
+              paths: ["target", "value"],
+              dispatch
+            })}
+          />
+        </CodeLabItem>
+      );
+    },
+    Boolean({ title }, key) {
+      return (
+        <CodeLabItem itemKey={key} key={key}>
+          <Switch
+            checked={codelab[namespace][key]}
+            {...getCodelabItemMixin({
+              key,
+              value: codelab[namespace][key],
+              namespace,
+              dispatch
+            })}
+          />
+        </CodeLabItem>
+      );
+    },
+    Date({ title }, key) {
+      return (
+        <CodeLabItem itemKey={key} key={key}>
+          <DatePicker
+            {...getCodelabItemMixin({
+              key,
+              value: codelab[namespace][key],
+              namespace,
+              dispatch
+            })}
+          />
+        </CodeLabItem>
+      );
+    },
+    Enum({ title, options }, key) {
+      return (
+        <CodeLabItem itemKey={key} key={key}>
+          <Select
+            style={{ width: 120 }}
+            {...getCodelabItemMixin({
+              key,
+              value: codelab[namespace][key],
+              namespace,
+              dispatch
+            })}
+          >
+            {options.map(option => (
+              <Option key={option} value={option}>
+                {option}
+              </Option>
+            ))}
+          </Select>
+        </CodeLabItem>
+      );
+    }
+  };
+}
+
 function path(paths, v) {
   return paths.reduce((acc, path) => acc[path], v);
 }
 
-export default connect(({ codelab }) => ({
-  codelab
-}))(
-  class CodeLab extends Component {
-    render() {
-      const { api, dispatch, codelab, namespace } = this.props;
-      if (!api) return "Please provide apis of the component~";
+export default class CodeLab extends Component {
+  render() {
+    const { api, dispatch, codelab, namespace } = this.props;
 
-      function getCodelabItemMixin({ key, value, namespace, paths, onType }) {
-        const d = v =>
-          dispatch({
-            type: "codelab/update",
-            payload: {
-              [key]: !paths ? v : path(paths, v)
-            },
-            namespace
-          });
-        return {
-          [onType ? onType : "onChange"]: d,
-          value
-        };
-      }
+    if (!api) return "Please provide apis of the component~";
 
-      const keys = Object.keys(api);
-      const mapper = {
-        Object: "", // Object什么都不展示
-        Number({ title, ...rest }, key) {
-          return (
-            <CodeLabItem itemKey={key} key={key}>
-              <InputNumber
-                defaultValue={0}
-                {...getCodelabItemMixin({
-                  key,
-                  value: codelab[namespace][key],
-                  namespace
-                })}
-              />
-            </CodeLabItem>
-          );
-        },
-        String({ title, ...rest }, key) {
-          return (
-            <CodeLabItem itemKey={key} key={key}>
-              <Input
-                {...getCodelabItemMixin({
-                  key,
-                  value: codelab[namespace][key],
-                  namespace,
-                  paths: ["target", "value"]
-                })}
-              />
-            </CodeLabItem>
-          );
-        },
-        Boolean({ title }, key) {
-          return (
-            <CodeLabItem itemKey={key} key={key}>
-              <Switch
-                checked={codelab[namespace][key]}
-                {...getCodelabItemMixin({
-                  key,
-                  value: codelab[namespace][key],
-                  namespace
-                })}
-              />
-            </CodeLabItem>
-          );
-        },
-        Date({ title }, key) {
-          return (
-            <CodeLabItem itemKey={key} key={key}>
-              <DatePicker
-                {...getCodelabItemMixin({
-                  key,
-                  value: codelab[namespace][key],
-                  namespace
-                })}
-              />
-            </CodeLabItem>
-          );
-        },
-        Enum({ title, options }, key) {
-          return (
-            <CodeLabItem itemKey={key} key={key}>
-              <Select
-                style={{ width: 120 }}
-                {...getCodelabItemMixin({
-                  key,
-                  value: codelab[namespace][key],
-                  namespace
-                })}
-              >
-                {options.map(option => (
-                  <Option key={option} value={option}>
-                    {option}
-                  </Option>
-                ))}
-              </Select>
-            </CodeLabItem>
-          );
-        }
-      };
-      return (
-        <div className={styles["code-lab"]}>
-          {keys.map(key => getComponent(key, api, mapper))}
-        </div>
-      );
-    }
+    const keys = Object.keys(api);
+
+    return (
+      <div className={styles["code-lab"]}>
+        {keys.map(key =>
+          getComponent(
+            key,
+            api,
+            getMapper({
+              dispatch,
+              codelab,
+              namespace
+            })
+          )
+        )}
+      </div>
+    );
   }
-);
+}
