@@ -224,6 +224,11 @@ the recommanded way to write your stories
        ----- index.less   // style
 ```
 
+## Next
+
+1. Snapshot testing with zero config
+2. Visual regress test
+
 ## Licence
 
 MIT
